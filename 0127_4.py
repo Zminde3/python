@@ -26,3 +26,11 @@ print(apskaiciuok_vidurki([1, 2, 3, 4, 9]))
 
 print(" - " * 60)
 
+def skaiciuoti_sumos_tipa(x: int, y: int, tik_teigiama=False) -> int:
+    return max(x + y, 0) if tik_teigiama else x + y
+print(skaiciuoti_sumos_tipa(x=8, y=4))
+print(skaiciuoti_sumos_tipa(x=5, y=-30, tik_teigiama=True))
+
+print(" - " * 60)
+
+
