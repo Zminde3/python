@@ -1,5 +1,4 @@
-def sveikink():
-    for _ in range(3):
-        print("Labas!")
-
-sveikink()
+def sudaugink(x, y):
+    return x * y
+rezultatas = sudaugink(5, 10)
+print("Rezultatas:", rezultatas)
