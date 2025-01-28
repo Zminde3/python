@@ -3,3 +3,4 @@ def sudetis(a: int, b: int) -> int:
 
 def daugyba(a: int, b: int) -> int:
     return a * b
+
