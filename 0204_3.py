@@ -12,13 +12,15 @@ class Book:
         return date.today().year - self.year
 
     def __str__(self):
-        return f"📖 \"{self.title}\" – {self.author} ({self.year})"
+        return f'"{self.title}" – {self.author} ({self.year})'
+
 
 books = [
     Book("Altorių šešėly", "Vincas Mykolaitis-Putinas", 1933),
     Book("Balta drobulė", "Antanas Škėma", 1958),
-    Book("Tadas Blinda", "Rimantas Šavelis", 1987)
+    Book("Tadas Blinda", "Rimantas Šavelis", 1987)  # Teisingas autorius ir metai
 ]
+
 
 for book in books:
     print(book)  # Automatiškai kviečia __str__()
