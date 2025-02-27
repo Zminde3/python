@@ -64,6 +64,25 @@ def delete_book(title):
     else:
         print("⚠️ Knyga nerasta!")
 
+
+def update_book(old_title, new_title=None, new_author=None, new_year=None):
+    book = session.query(Book).filter_by(title=old_title).first()
+
+    if not book:
+        print("⚠️ Klaida: tokia knyga nerasta!")
+        return
+
+    if new_title:
+        book.title = new_title
+    if new_author:
+        book.author = new_author
+    if new_year:
+        book.year_published = new_year
+
+    session.commit()
+    print(f"✅ Knyga '{old_title}' atnaujinta sėkmingai!")
+
+
 def delete_reader(email):
     reader = session.query(Reader).filter_by(email=email).first()
     if reader:
@@ -152,7 +171,18 @@ def main():
         elif pasirinkimas == "3":
             borrow_book(input("📖 Knygos pavadinimas: "), input("📧 Skaitytojo el. paštas: "))
         elif pasirinkimas == "4":
-            print("🔧 Ši funkcija dar neįgyvendinta.")
+            old_title = input("📖 Įveskite atnaujinamos knygos pavadinimą: ")
+            new_title = input("📖 Naujas pavadinimas (palik tuščią, jei nekeisi): ")
+            new_author = input("✍️ Naujas autorius (palik tuščią, jei nekeisi): ")
+            new_year = input("📅 Nauji leidimo metai (palik tuščią, jei nekeisi): ")
+
+            update_book(
+                old_title,
+                new_title if new_title else None,
+                new_author if new_author else None,
+                int(new_year) if new_year.isdigit() else None
+            )
+
         elif pasirinkimas == "5":
             delete_reader(input("📧 Skaitytojo el. paštas: "))
         elif pasirinkimas == "6":
