@@ -19,8 +19,6 @@ class Darbuotojas:
     def __str__(self):
         return f"{self.vardas} {self.pavarde} | Atlyginimas: {self.atlyginimas}€ | Mokesčiai: {self.mokesciai:.2f}€"
 
-
-
 d = Darbuotojas("Mindaugas", "Bernotaitis", 400)
 print(d)
 

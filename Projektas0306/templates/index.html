@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darboviečių ir darbuotojų valdymas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">📂 Darboviečių ir darbuotojų valdymas</h2>
+
+        <!-- Paieškos forma -->
+        <form method="GET" action="/" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" placeholder="Ieškoti darbovietės ar darbuotojo..." value="{{ query }}">
+                <button type="submit" class="btn btn-primary">🔍</button>
+            </div>
+        </form>
+
+        <!-- Darboviečių sąrašas -->
+        <h3 class="mt-4">🏢 Darboviečių sąrašas</h3>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Pavadinimas</th>
+                    <th>Miestas</th>
+                    <th>Darbuotojų skaičius</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for darboviete in darbovietes %}
+                <tr>
+                    <td>{{ darboviete.id }}</td>
+                    <td><a href="/darboviete/{{ darboviete.id }}">{{ darboviete.pavadinimas }}</a></td>
+                    <td>{{ darboviete.miestas }}</td>
+                    <td id="count-{{ darboviete.id }}">{{ darboviete.darbuotoju_skaicius }}</td>
+                    <td>
+                        <a href="/redaguoti-darboviete/{{ darboviete.id }}" class="btn btn-sm btn-primary">✏️ Redaguoti</a>
+                        <form action="/trinti-darboviete/{{ darboviete.id }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-danger">🗑️ Ištrinti</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/prideti-darboviete" class="btn btn-success">➕ Pridėti darbovietę</a>
+
+        <!-- Darbuotojų sąrašas -->
+        <h3 class="mt-4">👷 Darbuotojų sąrašas</h3>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Vardas</th>
+                    <th>Pavardė</th>
+                    <th>Pareigos</th>
+                    <th>Darbovietė</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for darbuotojas in darbuotojai %}
+                <tr {% if not darbuotojas.is_aktyvus %}class="inactive" data-status="inactive"{% endif %}>
+                    <td>{{ darbuotojas.id }}</td>
+                    <td>{{ darbuotojas.vardas }}</td>
+                    <td>{{ darbuotojas.pavarde }}</td>
+                    <td>{{ darbuotojas.pareigos }}</td>
+                    <td>{{ darbuotojas.darboviete.pavadinimas }}</td>
+                    <td>
+                        <a href="/redaguoti-darbuotoja/{{ darbuotojas.id }}" class="btn btn-sm btn-primary">✏️ Redaguoti</a>
+                        <form action="/trinti-darbuotoja/{{ darbuotojas.id }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-danger">🗑️ Ištrinti</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/prideti-darbuotoja" class="btn btn-success">➕ Pridėti darbuotoją</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

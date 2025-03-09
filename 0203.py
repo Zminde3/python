@@ -30,7 +30,7 @@
 # # UNIX timestamp į `datetime`
 # timestamp = 1707000000
 # print(f"🕰️ UNIX į normalų formatą: {datetime.fromtimestamp(timestamp)}")
-
++
 
 from datetime import datetime as d
 print(f"🕒 Dabar yra {d.today().strftime('%H:%M')}, {d.today().strftime('%d-%m-%Y')}")
